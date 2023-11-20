@@ -18,4 +18,8 @@
   &--full {
     background-color: yellowgreen;
   }
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }

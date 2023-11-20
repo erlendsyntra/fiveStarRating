@@ -1,12 +1,16 @@
 import { useState } from "react";
 import clsx from "clsx";
 import "./style.scss";
-const FiveStarRating = ({ value, disabled = false }) => {
+const FiveStarRating = ({ staramount = 5, value = 0, disabled = false }) => {
   const [currentStars, setCurrentStars] = useState(+value);
-  //   const classes = clsx({
-  //     star: true,
-  //     "star-full": true,
-  //   });
+  const classes = [...Array(staramount)].map((star, index) => {
+    const myclass = clsx({
+      star: true,
+      "star--full": index + 1 <= currentStars,
+      "star--disabled": disabled,
+    });
+    return myclass;
+  });
   const logMe = (e) => {
     if (e.target.nodeName === "SPAN" && !disabled) {
       setCurrentStars(e.target.dataset.starnr);
@@ -14,15 +18,16 @@ const FiveStarRating = ({ value, disabled = false }) => {
   };
   return (
     <div onClick={logMe}>
-      {[...Array(5)].map((star, index) => {
+      {[...Array(staramount)].map((star, index) => {
         return (
           <span
             key={index + 1}
             data-starnr={index + 1}
-            className={index + 1 <= currentStars ? "star star--full" : "star"}
+            className={classes[index]}
           ></span>
         );
       })}
+      <p>Your rating is {currentStars} stars.</p>
     </div>
   );
 };
