@@ -45,3 +45,12 @@
     opacity: 0.5;
   }
 }
+
+.reset {
+  width: 15px;
+  height: 15px;
+  bottom: 10px;
+  &--hidden {
+    display: none;
+  }
+}

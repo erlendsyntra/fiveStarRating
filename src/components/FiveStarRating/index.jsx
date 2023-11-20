@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaArrowsRotate } from "react-icons/fa6";
 import clsx from "clsx";
 import "./style.scss";
 const FiveStarRating = ({ staramount = 5, value = 0, disabled = false }) => {
@@ -17,24 +18,35 @@ const FiveStarRating = ({ staramount = 5, value = 0, disabled = false }) => {
       setCurrentStars(e.target.dataset.starnr);
     }
   };
+  const reset = () => {
+    if (!disabled) {
+      setCurrentStars(0);
+    }
+  };
   return (
-    <div onClick={register}>
-      {[...Array(staramount)].map((star, index) => {
-        const starValue = index + 1;
-        return (
-          <div className="outside">
-            <span
-              key={starValue}
-              data-starnr={starValue}
-              className={classes[index]}
-              onMouseEnter={() => setHover(starValue)}
-              onMouseLeave={() => setHover(null)}
-            ></span>
-          </div>
-        );
-      })}
-      <p>Your rating is {currentStars} stars.</p>
-    </div>
+    <>
+      <div onClick={register}>
+        {[...Array(staramount)].map((star, index) => {
+          const starValue = index + 1;
+          return (
+            <div className="outside">
+              <span
+                key={starValue}
+                data-starnr={starValue}
+                className={classes[index]}
+                onMouseEnter={() => setHover(starValue)}
+                onMouseLeave={() => setHover(null)}
+              ></span>
+            </div>
+          );
+        })}
+        <FaArrowsRotate
+          onClick={reset}
+          className={disabled ? "reset--hidden" : "reset"}
+        />
+        <p>Your rating is {currentStars} stars.</p>
+      </div>
+    </>
   );
 };
 export default FiveStarRating;
